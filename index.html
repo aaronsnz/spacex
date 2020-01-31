@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Next SpaceX launch</title>
+        <link href="https://fonts.googleapis.com/css?family=Audiowide&display=swap" rel="stylesheet"> 
+        <link rel="stylesheet" href="vendors/simple-grid.min.css">
+        <link rel="stylesheet" href="resources/styles.css">
+    </head>
+    <body>
+        <header>
+
+            <div class="info-container">
+                <div class="next-launch-textbox">
+                    <h1 class="next-launch-header">
+                        <span class="next-launch-header--title">Next launch in:</span>
+                        <span class="next-launch-header--subtitle" id="launch-countdown">7 days 4 hours 16 minutes</span>
+                    </h1>
+                </div>
+                <div class="launch-info-container">
+                    <h2 class="launch-info">
+                        <span class="launch-info--title">Mission:</span>
+                        <span class="launch-info--subtitle" id="launch-mission">Orbcomm 0G2</span>
+                    </h2>
+                    <h2 class="launch-info">
+                        <span class="launch-info--title">Customers:</span>
+                        <span class="launch-info--subtitle" id="launch-customers">Pasifik Satelit Nasantara</span>
+                    </h2>
+                    <h2 class="launch-info">
+                        <span class="launch-info--title">Launch Site:</span>
+                        <span class="launch-info--subtitle" id="launch-site">Cape Canaveral Air Force Station Space Launch Complex 40</span>
+                    </h2>                
+                </div>
+            </div>
+        </header>   
+        <section class="chart">
+            <canvas id="chart" width="400" height="400"></canvas>
+        </section>
+        
+    </body>
+    <script src="resources/scripts/script.js"></script>
+</html>
