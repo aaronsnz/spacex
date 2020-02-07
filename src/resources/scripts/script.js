@@ -14,7 +14,10 @@ var domStrings = {
 var pastLaunches = {};
 
 getNextLaunchInfo(nextLaunch);
-getPastLaunchesInfo(pastLaunches).then(response => pastLaunches = response);    
+getPastLaunchesInfo(pastLaunches).then(response => { 
+    pastLaunches = response;
+    chartPastLaunches();
+});    
 
 setInterval(function(){    
     displayNextLaunchInfo();
@@ -75,4 +78,33 @@ async function getPastLaunchesInfo(){
     } catch(e) {
         console.log(e);
     }
+}
+
+function chartPastLaunches(){
+    var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July','August','September','October','November','December'];
+    var pastLaunchesData = [0,0,0,0,0,0,0,0,0,0,0,0,0];               
+    pastLaunches.forEach(launch => {
+        lauchDate = new Date(launch.launch_date_utc);                
+        pastLaunchesData[lauchDate.getMonth()] += 1;
+    });
+            
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var chart = new Chart(ctx, {
+        // The type of chart we want to create
+        type: 'bar',
+    
+        // The data for our dataset
+        data: {
+            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July','August','September','October','November','December'],
+            datasets: [{
+                label: 'SpaceX launches',
+                backgroundColor: 'rgb(112, 236, 255)',
+                borderColor: 'rgb(66, 230, 255)',
+                data: pastLaunchesData
+            }]
+        },
+    
+        // Configuration options go here
+        options: {}
+    });
 }
