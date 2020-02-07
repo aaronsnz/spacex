@@ -5,48 +5,28 @@ var nextLaunch = {
     customers: String,
     site: String
 }
-
-var pastLaunches = {}
-
 var domStrings = {
     nextLaunchCountdown: document.querySelector('#launch-countdown'),
     nextLaunchMission: document.querySelector('#launch-mission'),
     nextLaunchCustomers: document.querySelector('#launch-customers'),
     nextLaunchSite: document.querySelector('#launch-site')
 };
+var pastLaunches = {};
 
-getNextLaunchInfo()
-    .then(response => {         
-        nextLaunch.date = new Date(response.launch_date_utc).getTime();
-        nextLaunch.mission = response.mission_name;
-        nextLaunch.site = response.launch_site.site_name_long;
-        nextLaunch.customers = response.rocket.second_stage.payloads[0].customers;
-        displayNextLaunchInfo();
-    })
-    .catch(error => console.log(error));
+getNextLaunchInfo(nextLaunch);
+getPastLaunchesInfo(pastLaunches).then(response => pastLaunches = response);    
 
 setInterval(function(){    
-    displayNextLaunchInfo(calculateNextLaunchInfo());
+    displayNextLaunchInfo();
 }, 1000);
 
-getPastLaunchesInfo()
-    .then(data => {
-        pastLaunches = data;
-    })
-    .catch( error => console.log(error));
-
-function calculateNextLaunchInfo(){
+function displayNextLaunchInfo(){      
     let currentDate = Date.now();
     let timeUntilNextLaunch =  nextLaunch.date - currentDate;    
-    return formatDateToString(timeUntilNextLaunch);
-}
-
-function displayNextLaunchInfo(calculatedNextLaunchDate){      
-    domStrings.nextLaunchCountdown.innerHTML = calculatedNextLaunchDate;
+    domStrings.nextLaunchCountdown.innerHTML = formatDateToString(timeUntilNextLaunch);
     domStrings.nextLaunchMission.innerHTML = nextLaunch.mission;
     domStrings.nextLaunchSite.innerHTML = nextLaunch.site;    
-    domStrings.nextLaunchCustomers.innerHTML = nextLaunch.customers;    
-    //console.log(`Next mission: ${nextLaunch.mission}. Next launch site: ${nextLaunch.site}`);
+    domStrings.nextLaunchCustomers.innerHTML = nextLaunch.customers;        
 }
 
 function formatDateToString(date){
@@ -64,23 +44,35 @@ function formatDateToString(date){
     return countDownTimer.join(', ');
 }
 
-//DONE
-async function getNextLaunchInfo(){
-    const response = await fetch('https://api.spacexdata.com/v3/launches/next');       
-    const data = await response.json();
-    return data;
+async function getNextLaunchInfo(nextLaunch){
+    try{
+        const response = await fetch('https://api.spacexdata.com/v3/launches/next');       
+        const data = await response.json();
+
+        nextLaunch.date = new Date(data.launch_date_utc).getTime();
+        nextLaunch.mission = data.mission_name;
+        nextLaunch.site = data.launch_site.site_name_long;
+        nextLaunch.customers = data.rocket.second_stage.payloads[0].customers;
+        displayNextLaunchInfo();
+    } catch(e) {
+        console.log(e);
+    }
 }
 
 async function getPastLaunchesInfo(){
-    const oneYear = 1000*60*60*24*365;
+    try{
+        const oneYear = 1000*60*60*24*365;
+        
+        let lastYear = new Date(new Date().getTime() - oneYear);            
+        let formatedLastYear = `${lastYear.getFullYear()}-${lastYear.getMonth()+1}-${lastYear.getDate()}`;
     
-    let lastYear = new Date(new Date().getTime() - oneYear);            
-    let formatedLastYear = `${lastYear.getFullYear()}-${lastYear.getMonth()+1}-${lastYear.getDate()}`;
-
-    let currentDate = new Date;
-    let formatedCurrentDate = `${currentDate.getFullYear()}-${currentDate.getMonth()+1}-${currentDate.getDate()}`;    
-
-    const response = await fetch(`https://api.spacexdata.com/v3/launches/past?start=${formatedLastYear}&end=${formatedCurrentDate}`);
-    const data = await response.json();
-    return data;
+        let currentDate = new Date;
+        let formatedCurrentDate = `${currentDate.getFullYear()}-${currentDate.getMonth()+1}-${currentDate.getDate()}`;    
+    
+        const response = await fetch(`https://api.spacexdata.com/v3/launches/past?start=${formatedLastYear}&end=${formatedCurrentDate}`);
+        const data = await response.json();
+        return data; 
+    } catch(e) {
+        console.log(e);
+    }
 }
