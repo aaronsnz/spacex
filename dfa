@@ -1,0 +1,29 @@
+[33mcommit 8a0124eb9d0997bef601f159120779f67a8945bf[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m)[m
+Author: aaron <aaronsotelon@gmail.com>
+Date:   Fri Feb 7 10:32:35 2020 -0600
+
+    succesful migration to async await, no timeout function. All functionality in 1 file script.js
+
+[33mcommit 7ce3c65b8d50584b8ca978372183e62384fbc704[m
+Author: aaron <aaronsotelon@gmail.com>
+Date:   Fri Feb 7 10:32:27 2020 -0600
+
+    succesful migration to async await, no timeout function. All functionality in 1 file script.js
+
+[33mcommit 9acfeb31d59c77c38fff90295a1476f6ee2efd1f[m
+Author: aaron <aaronsotelon@gmail.com>
+Date:   Fri Feb 7 10:30:13 2020 -0600
+
+    basic migration to async completed, it works.
+
+[33mcommit 4a482be0f12c902b2d7f7d3114b5e85663c2b653[m
+Author: aaron <aaronsotelon@gmail.com>
+Date:   Fri Feb 7 09:52:10 2020 -0600
+
+    basic function
+
+[33mcommit db4b372c54c37094cfb3a19bce79986a3312e9bc[m
+Author: aaron <aaronsotelon@gmail.com>
+Date:   Fri Jan 31 17:09:05 2020 -0600
+
+    countdown works, other next launch info not yet displayed

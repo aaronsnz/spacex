@@ -3,15 +3,19 @@ var nextLaunch = {
     date: Date,
     mission: String,
     customers: String,
-    site: String
+    site: String,
+    details: String
 }
 var domStrings = {
     nextLaunchCountdown: document.querySelector('#launch-countdown'),
     nextLaunchMission: document.querySelector('#launch-mission'),
     nextLaunchCustomers: document.querySelector('#launch-customers'),
-    nextLaunchSite: document.querySelector('#launch-site')
+    nextLaunchSite: document.querySelector('#launch-site'),
+    details: document.querySelector('#details')
 };
 var pastLaunches = {};
+
+var missionsDate;
 
 getNextLaunchInfo(nextLaunch);
 getPastLaunchesInfo(pastLaunches).then(response => { 
@@ -29,7 +33,8 @@ function displayNextLaunchInfo(){
     domStrings.nextLaunchCountdown.innerHTML = formatDateToString(timeUntilNextLaunch);
     domStrings.nextLaunchMission.innerHTML = nextLaunch.mission;
     domStrings.nextLaunchSite.innerHTML = nextLaunch.site;    
-    domStrings.nextLaunchCustomers.innerHTML = nextLaunch.customers;        
+    domStrings.nextLaunchCustomers.innerHTML = nextLaunch.customers;  
+    domStrings.details.innerHTML = nextLaunch.details;      
 }
 
 function formatDateToString(date){
@@ -55,7 +60,9 @@ async function getNextLaunchInfo(nextLaunch){
         nextLaunch.date = new Date(data.launch_date_utc).getTime();
         nextLaunch.mission = data.mission_name;
         nextLaunch.site = data.launch_site.site_name_long;
-        nextLaunch.customers = data.rocket.second_stage.payloads[0].customers;
+        nextLaunch.customers = data.rocket.second_stage.payloads[0].customers;   
+        nextLaunch.details = data.details;     
+        
         displayNextLaunchInfo();
     } catch(e) {
         console.log(e);
@@ -74,6 +81,8 @@ async function getPastLaunchesInfo(){
     
         const response = await fetch(`https://api.spacexdata.com/v3/launches/past?start=${formatedLastYear}&end=${formatedCurrentDate}`);
         const data = await response.json();
+        missionsDate = '(' + formatedLastYear + ' to ' + formatedCurrentDate + ')';
+        console.log(data);
         return data; 
     } catch(e) {
         console.log(e);
@@ -82,7 +91,8 @@ async function getPastLaunchesInfo(){
 
 function chartPastLaunches(){
     var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July','August','September','October','November','December'];
-    var pastLaunchesData = [0,0,0,0,0,0,0,0,0,0,0,0,0];               
+    var pastLaunchesData = [0,0,0,0,0,0,0,0,0,0,0,0,0];    
+    document.querySelector('#missions-date').innerHTML = missionsDate;           
     pastLaunches.forEach(launch => {
         lauchDate = new Date(launch.launch_date_utc);                
         pastLaunchesData[lauchDate.getMonth()] += 1;
