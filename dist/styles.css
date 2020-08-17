@@ -8,7 +8,8 @@
   line-height: 1.15; }
 
 html {
-  font-size: 62%; }
+  font-size: 62%;
+  color: #4f4f4f; }
   @media (min-width: 500px) {
     html {
       font-size: 50%; } }
@@ -23,6 +24,10 @@ body {
   width: 100%;
   height: 100%;
   background-color: white; }
+
+header {
+  min-height: 100vh;
+  margin-bottom: 5rem; }
 
 .info-container {
   max-width: 1140px;
@@ -40,21 +45,17 @@ body {
     .next-launch-header {
       white-space: normal; } }
   .next-launch-header--title {
-    font-size: 8rem;
+    font-size: 5rem;
     display: block;
     text-align: center; }
-    @media screen and (max-width: 500px) {
-      .next-launch-header--title {
-        font-size: 4rem;
-        margin-bottom: 2rem; } }
   .next-launch-header--subtitle {
     display: block;
-    font-size: 2.75rem;
-    text-align: right;
+    font-size: 2.5rem;
+    text-align: center;
     letter-spacing: 4px; }
-    @media (max-width: 500px) {
+    @media (max-width: 625px) {
       .next-launch-header--subtitle {
-        text-align: center; } }
+        text-align: left; } }
 
 .launch-info-container {
   max-width: 100%;
@@ -76,44 +77,43 @@ body {
 .mission-specification {
   max-width: 100%;
   margin: 0 auto;
-  max-height: 100vh; }
+  min-height: 35vh;
+  margin-bottom: 10rem; }
   .mission-specification--header {
     text-align: center;
-    font-size: 3.5rem;
+    font-size: 2.5rem;
     margin-bottom: 2.5rem; }
   .mission-specification--content {
-    font-size: 2.5rem;
+    font-size: 2rem;
     text-align: center;
-    letter-spacing: 3px; }
+    line-height: 1.5; }
 
 .chart {
+  max-width: 1140px;
+  max-height: 100%;
   margin: 0 auto;
-  position: relative;
-  max-width: 100%;
-  min-height: 100%; }
+  padding: 5rem 2.5rem;
+  min-height: 35vh; }
   .chart--header {
     text-align: center;
-    font-size: 3.5rem;
-    display: block;
-    margin-bottom: 2rem; }
+    font-size: 3.5rem; }
     .chart--header__date {
-      margin-bottom: 2rem;
       text-align: center;
-      font-size: 2rem; }
+      font-size: 3.5rem; }
   .chart--container {
     margin: 0 auto;
-    height: 35rem;
-    width: 35rem; }
+    height: 50vh; }
+  .chart--propper {
+    margin: 0 auto; }
 
 footer {
-  background-color: #e1e1e1; }
+  background-color: whitesmoke;
+  height: 10rem; }
 
 .footer {
   width: 100%;
-  min-height: 20vh;
   margin: 0 auto;
-  padding: 2rem;
-  box-shadow: 0 50vh 0 50vh whitesmoke; }
+  padding: 1rem; }
   .footer--list {
     text-align: center;
     max-width: 50%;
@@ -123,4 +123,15 @@ footer {
     .footer--list__element {
       margin-bottom: 1rem; }
     .footer--list__link {
-      color: #33bdd3; }
+      color: #66e2f5; }
+
+.wrapper {
+  display: flex; }
+
+#text {
+  padding: 0 10px 0 0;
+  margin: 0; }
+
+#cursor {
+  margin: 0;
+  display: inline-block; }

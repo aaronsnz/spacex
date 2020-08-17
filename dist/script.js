@@ -1,3 +1,4 @@
+
 var nextLaunch = {
     date: '10 days, 0 hours, 0 minutes, 0 seconds',
     mission: 'Starklink 4',
@@ -12,14 +13,15 @@ var domStrings = {
     nextLaunchMission: document.querySelector('#launch-mission'),
     nextLaunchCustomers: document.querySelector('#launch-customers'),
     nextLaunchSite: document.querySelector('#launch-site'),
-    details: document.querySelector('#details')
+    details: document.querySelector('.details')
 };
+
 
 domStrings.nextLaunchCountdown.innerHTML = nextLaunch.date;
 domStrings.nextLaunchMission.innerHTML = nextLaunch.mission;
 domStrings.nextLaunchSite.innerHTML = nextLaunch.site;    
 domStrings.nextLaunchCustomers.innerHTML = nextLaunch.customers;  
-domStrings.details.innerHTML = nextLaunch.details;    
+//domStrings.details.innerHTML = nextLaunch.details;    
 
 var pastLaunches = {};
 
@@ -27,10 +29,10 @@ var missionsDate;
 
 getNextLaunchInfo(nextLaunch);
 
-getPastLaunchesInfo(pastLaunches).then(response => { 
-    pastLaunches = response;
-    chartPastLaunches();
-});    
+//getPastLaunchesInfo(pastLaunches).then(response => { 
+//    pastLaunches = response;
+//    chartPastLaunches();
+//});    
 
 setInterval(function(){    
     displayNextLaunchInfo();
@@ -65,7 +67,7 @@ async function getNextLaunchInfo(nextLaunch){
     try{
         const response = await fetch('https://api.spacexdata.com/v3/launches/next');       
         const data = await response.json();
-        console.log(data);
+        //console.log(data);
 
         nextLaunch.date = new Date(data.launch_date_utc).getTime();
         nextLaunch.mission = data.mission_name;
@@ -82,50 +84,68 @@ async function getNextLaunchInfo(nextLaunch){
     }
 }
 
-async function getPastLaunchesInfo(){
-    try{
-        const oneYear = 1000*60*60*24*365;
-        
-        let lastYear = new Date(new Date().getTime() - oneYear);            
-        let formatedLastYear = `${lastYear.getFullYear()}-${lastYear.getMonth()+1}-${lastYear.getDate()}`;
-    
-        let currentDate = new Date;
-        let formatedCurrentDate = `${currentDate.getFullYear()}-${currentDate.getMonth()+1}-${currentDate.getDate()}`;    
-    
-        const response = await fetch(`https://api.spacexdata.com/v3/launches/past?start=${formatedLastYear}&end=${formatedCurrentDate}`);
-        const data = await response.json();
-        missionsDate = '(From ' + formatedLastYear + ' to ' + formatedCurrentDate + ')';        
-        return data; 
-    } catch(e) {
-        console.log(e);
-    }
-}
 
-function chartPastLaunches(){
-    var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July','August','September','October','November','December'];
-    var pastLaunchesData = [0,0,0,0,0,0,0,0,0,0,0,0,0];    
-    document.querySelector('#missions-date').innerHTML = missionsDate;           
-    pastLaunches.forEach(launch => {
-        lauchDate = new Date(launch.launch_date_utc);                
-        pastLaunchesData[lauchDate.getMonth()] += 1;
-    });
-            
-    var ctx = document.getElementById('myChart').getContext('2d');
-    var chart = new Chart(ctx, {
-        // The type of chart we want to create
-        type: 'bar',
-    
-        // The data for our dataset
-        data: {
-            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July','August','September','October','November','December'],
-            datasets: [{
-                label: 'SpaceX launches',
-                backgroundColor: 'rgb(100, 100, 100)',                
-                data: pastLaunchesData
-            }]
-        },
-    
-        // Configuration options go here
-        options: {}
-    });
-}
+//****** TYPEWRITER FOR THE MISSION INFORMATION ******/
+
+//var launchInfo = document.querySelectorAll('.launch-info--subtitle');
+//
+//setTimeout(() => {
+//    Array.from(launchInfo).forEach( element => {
+//        gsap.fromTo('#cursor', {autoAlpha: 0, x:-10}, {autoAlpha: 1, duration: 0.5, repeat: -1, ease: SteppedEase.config(1)});    
+//        let tween = gsap.to("#text", {text: {value: nextLaunch.details }, duration: 10, delay: 1, ease: "none"})    
+//        //console.log(element)
+//        //console.log(element.childNodes)
+//    }  );
+//
+//}, 1500);
+
+
+
+
+//async function getPastLaunchesInfo(){
+//    try{
+//        const oneYear = 1000*60*60*24*365;
+//        
+//        let lastYear = new Date(new Date().getTime() - oneYear);            
+//        let formatedLastYear = `${lastYear.getFullYear()}-${lastYear.getMonth()+1}-${lastYear.getDate()}`;
+//    
+//        let currentDate = new Date;
+//        let formatedCurrentDate = `${currentDate.getFullYear()}-${currentDate.getMonth()+1}-${currentDate.getDate()}`;    
+//    
+//        const response = await fetch(`https://api.spacexdata.com/v3/launches/past?start=${formatedLastYear}&end=${formatedCurrentDate}`);
+//        const data = await response.json();
+//        missionsDate = '(From ' + formatedLastYear + ' to ' + formatedCurrentDate + ')';        
+//        return data; 
+//    } catch(e) {
+//        console.log(e);
+//    }
+//}
+
+//function chartPastLaunches(){
+//    var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July','August','September','October','November','December'];
+//    var pastLaunchesData = [0,0,0,0,0,0,0,0,0,0,0,0,0];    
+//    document.querySelector('#missions-date').innerHTML = missionsDate;           
+//    pastLaunches.forEach(launch => {
+//        lauchDate = new Date(launch.launch_date_utc);                
+//        pastLaunchesData[lauchDate.getMonth()] += 1;
+//    });
+//            
+//    var ctx = document.getElementById('myChart').getContext('2d');
+//    var chart = new Chart(ctx, {
+//        // The type of chart we want to create
+//        type: 'bar',
+//    
+//        // The data for our dataset
+//        data: {
+//            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July','August','September','October','November','December'],
+//            datasets: [{
+//                label: 'SpaceX launches',
+//                backgroundColor: 'rgb(100, 100, 100)',                
+//                data: pastLaunchesData
+//            }]
+//        },
+//    
+//        // Configuration options go here
+//        options: {}
+//    });
+//}
