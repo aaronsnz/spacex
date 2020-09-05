@@ -6,60 +6,67 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>Next SpaceX launch</title>
         <link href="https://fonts.googleapis.com/css?family=Audiowide&display=swap" rel="stylesheet"> 
-        <!--link rel="stylesheet" href="vendors/simple-grid.min.css"-->
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+        integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+        crossorigin=""/>        
+        <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+        integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+        crossorigin=""></script>
         <link rel="stylesheet" href="dist/styles.css">
+
         
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.2.6/gsap.min.js"></script>   
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.0/TextPlugin.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>    
     </head>
     <body>              
+        <div class="layout-loading-page is-active">
+            <div class="layout-loading-icon">
+                <div class="sk-cube-grid">
+                    <div class="sk-cube sk-cube1"></div>
+                    <div class="sk-cube sk-cube2"></div>
+                    <div class="sk-cube sk-cube3"></div>
+                    <div class="sk-cube sk-cube4"></div>
+                    <div class="sk-cube sk-cube5"></div>
+                    <div class="sk-cube sk-cube6"></div>
+                    <div class="sk-cube sk-cube7"></div>
+                    <div class="sk-cube sk-cube8"></div>
+                    <div class="sk-cube sk-cube9"></div>
+                </div>
+            </div>
+        </div>
         <header>
-            <div class="info-container">
-                    <div class="next-launch-textbox">
-                    <h1 class="next-launch-header">
-                        <span class="next-launch-header--title">Next launch in:</span>
-                        <span class="next-launch-header--subtitle" id="launch-countdown">7 days 4 hours 16 minutes</span>
-                    </h1>
+           <div class="layout-sidebar">
+                <div class="layout-next-launch">
+                    <h1 class="next-launch__title">Next launch in:</h1>
+                    <span class="next-launch__subtitle">04 days, 3 hours, 25 minutes, 5 seconds</span>
                 </div>
-                <div class="launch-info-container">
-                    <h2 class="launch-info">
-                        <span class="launch-info--title">Mission:</span>
-                        <span class="launch-info--subtitle" id="launch-mission">Orbcomm 0G2</span>
-                    </h2>
-                    <h2 class="launch-info">
-                        <span class="launch-info--title">Customers:</span>
-                        <span class="launch-info--subtitle" id="launch-customers">Pasifik Satelit Nasantara</span>
-                    </h2>
-                    <h2 class="launch-info">
-                        <span class="launch-info--title">Launch Site:</span>
-                        <span class="launch-info--subtitle" id="launch-site">Cape Canaveral Air Force Station Space Launch Complex 40</span>
-                    </h2>                
+                <div class="layout-next-launch">
+                    <h2 class="next-launch__header">Mission:</h2>
+                    <span class="next-launch__content">Orbcomm 0G2</span>
                 </div>
-                <div class="mission-specification">
-                    <h2 class="mission-specification--header"> The mission</h2>
-                    <div class="mission-specification--content details wrapper">
-                        <span id="text">
+                <div class="layout-next-launch">
+                    <h2 class="next-launch__header">Customers:</h2>
+                    <span class="next-launch__content">Pasifik Satelit Nusantara</span>
+                </div>
+                <div class="layout-next-launch">
+                    <h2 class="next-launch__header">Launch site:</h2>
+                    <span class="next-launch__content">Cape Canaveral Air Force Station Space Launch Complex 40</span>
+                </div>
+                <div class="layout-next-launch">
+                    <h2 class="next-launch__header">Mission:</h2>
+                    <span class="next-launch__content">This mission will launch the tenth batch of operational Starlink 
+
+                        satellites, which are expected to be version 1.0, from LC-39A, Kennedy 
     
-                        </span>
-                        <span id="cursor">|</span>
-                        <div class="output"></div>
-                    </div>
-
-
-                    <!--<p class="mission-specification--content details wrapper">
-                    </p>-->           
+                        Space Center. It is the eleventh Starlink launch overall. The satellites
+    
+                        will be delivered to low Earth orbit and will spend a few weeks 
+    
+                        maneuvering to their operational altitude of 550 km. </span>
                 </div>
-            </div>
+           </div>
         </header>          
-
-        <footer>
-            <div class="footer">
-                <ul class="footer--list">
-                    <li class="footer--list__element">Powered by <a href="https://github.com/r-spacex/SpaceX-API" target="_blank" class="footer--list__link">SpaceX-API</a></li>                    
-                </ul>
-            </div>
-        </footer>    
+        <div class="layout-map-container" id="mapid">            
+            
+        </div>
 
     </body>                        
     <script src="dist/script.js"></script>    

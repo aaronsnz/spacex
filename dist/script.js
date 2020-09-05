@@ -1,14 +1,63 @@
+let loadingPage = document.querySelector(".layout-loading-page");
 
-var nextLaunch = {
+const nextLaunch = async function(){  
+    const response = await fetch('https://api.spacexdata.com/v3/launches/next');         
+    const data = await response.json();
+    return data;
+    
+}
+const launchPad = async function(id){           
+    const response = await fetch(`https://api.spacexdata.com/v3/launchpads/${id}`);
+    const data = await response.json();
+    return data;
+}
+
+nextLaunch().then(nextLaunchData => {    
+    launchPad(nextLaunchData.launch_site.site_id).then(launchPadData => {
+        loadingPage.classList.toggle("is-active");
+       
+        var mymap = L.map('mapid').setView([launchPadData.location.latitude, launchPadData.location.longitude], 4);
+        
+        L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+            maxZoom: 18,
+            id: 'mapbox/streets-v11',
+            tileSize: 512,
+            zoomOffset: -1,
+            accessToken: 'pk.eyJ1IjoiYWFyb25zbiIsImEiOiJja2Vvb2hlaXQwcm8xMzF0NWNxcjFiYnR1In0.YyuRfMBfT_eyEGi9wKs0bg'
+        }).addTo(mymap);
+
+        var customIcon = L.icon({
+            iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png',
+            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+            iconSize: [25, 41],
+            iconAnchor: [12, 41],
+            popupAnchor: [1, -34],
+            shadowSize: [41, 41]
+
+        })
+        var marker = L.marker([launchPadData.location.latitude, launchPadData.location.longitude], {
+            icon: customIcon
+        }).addTo(mymap);
+        
+        
+    });
+});
+
+
+
+//console.log(launchPad(nextLaunch.launch_site.side_id));
+
+/*var nextLaunch = {
     date: '10 days, 0 hours, 0 minutes, 0 seconds',
     mission: 'Starklink 4',
     customers: 'SpaceX',
     site: 'Cape Canaveral Air Force Station Space Launch Complex 40',
     details: 'Cape Canaveral Air Force Station Space Launch Complex 40'
-}
+}*/
 
 
-var domStrings = {
+/*var domStrings = {
     nextLaunchCountdown: document.querySelector('#launch-countdown'),
     nextLaunchMission: document.querySelector('#launch-mission'),
     nextLaunchCustomers: document.querySelector('#launch-customers'),
@@ -83,7 +132,7 @@ async function getNextLaunchInfo(nextLaunch){
         console.log(e);
     }
 }
-
+*/
 
 //****** TYPEWRITER FOR THE MISSION INFORMATION ******/
 

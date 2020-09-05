@@ -5,11 +5,13 @@
   padding: 0;
   box-sizing: border-box;
   font-family: 'Audiowide', cursive, 'Arial';
-  line-height: 1.15; }
+  line-height: 1.25;
+  letter-spacing: 2px; }
 
 html {
   font-size: 62%;
-  color: #4f4f4f; }
+  color: #4f4f4f;
+  text-rendering: optimizeLegibility; }
   @media (min-width: 500px) {
     html {
       font-size: 50%; } }
@@ -25,113 +27,127 @@ body {
   height: 100%;
   background-color: white; }
 
-header {
-  min-height: 100vh;
-  margin-bottom: 5rem; }
+.is-active {
+  display: inline-block !important; }
 
-.info-container {
-  max-width: 1140px;
-  max-height: 100%;
-  margin: 0 auto;
-  padding: 5rem 2.5rem; }
+.layout-sidebar {
+  position: absolute;
+  height: 100%;
+  width: 35%;
+  left: 0;
+  padding: 2.5rem;
+  border-right: 1px solid grey;
+  background-color: #fff;
+  overflow-y: scroll; }
 
-.next-launch-textbox {
-  margin-bottom: 7.5rem; }
+.layout-map-container {
+  position: absolute;
+  height: 100%;
+  width: 65%;
+  right: 0; }
 
-.next-launch-header {
-  max-width: 100%;
-  display: block; }
-  @media (max-width: 625px) {
-    .next-launch-header {
-      white-space: normal; } }
-  .next-launch-header--title {
-    font-size: 5rem;
-    display: block;
-    text-align: center; }
-  .next-launch-header--subtitle {
-    display: block;
-    font-size: 2.5rem;
-    text-align: center;
-    letter-spacing: 4px; }
-    @media (max-width: 625px) {
-      .next-launch-header--subtitle {
-        text-align: left; } }
-
-.launch-info-container {
-  max-width: 100%;
-  top: 60vh;
-  margin-bottom: 10rem; }
-
-.launch-info {
-  margin-bottom: 2rem;
-  letter-spacing: 3px;
-  left: 50%; }
-  .launch-info--title {
-    font-size: 2.5rem; }
-  .launch-info--subtitle {
-    margin-left: 2rem;
-    font-size: 2rem;
-    display: block;
-    max-width: 60%; }
-
-.mission-specification {
-  max-width: 100%;
-  margin: 0 auto;
-  min-height: 35vh;
-  margin-bottom: 10rem; }
-  .mission-specification--header {
-    text-align: center;
-    font-size: 2.5rem;
-    margin-bottom: 2.5rem; }
-  .mission-specification--content {
-    font-size: 2rem;
-    text-align: center;
-    line-height: 1.5; }
-
-.chart {
-  max-width: 1140px;
-  max-height: 100%;
-  margin: 0 auto;
-  padding: 5rem 2.5rem;
-  min-height: 35vh; }
-  .chart--header {
-    text-align: center;
-    font-size: 3.5rem; }
-    .chart--header__date {
-      text-align: center;
-      font-size: 3.5rem; }
-  .chart--container {
-    margin: 0 auto;
-    height: 50vh; }
-  .chart--propper {
-    margin: 0 auto; }
-
-footer {
-  background-color: whitesmoke;
-  height: 10rem; }
-
-.footer {
+.layout-loading-page {
   width: 100%;
-  margin: 0 auto;
-  padding: 1rem; }
-  .footer--list {
-    text-align: center;
-    max-width: 50%;
-    margin: 0 auto;
-    list-style: none;
-    font-size: 2rem; }
-    .footer--list__element {
-      margin-bottom: 1rem; }
-    .footer--list__link {
-      color: #66e2f5; }
+  height: 100%;
+  background-color: white;
+  position: absolute;
+  display: none; }
 
-.wrapper {
-  display: flex; }
+.layout-loading-icon {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center; }
 
-#text {
-  padding: 0 10px 0 0;
-  margin: 0; }
+.layout-next-launch {
+  display: block;
+  margin-bottom: 2.5rem; }
 
-#cursor {
-  margin: 0;
-  display: inline-block; }
+.next-launch__title {
+  font-size: 3rem;
+  text-align: center; }
+
+.next-launch__subtitle {
+  font-size: 1.85rem;
+  text-align: center;
+  display: block; }
+
+.next-launch__header {
+  font-size: 2.5rem;
+  text-align: left;
+  margin-bottom: 1rem; }
+
+.next-launch__content {
+  font-size: 1.5rem;
+  text-align: center;
+  margin-left: 2.5rem;
+  display: inline; }
+
+/*----------------------------------------*/
+/*----------LOADING SCREEN ANIMATION------*/
+/*----------------------------------------*/
+.sk-cube-grid {
+  width: 40px;
+  height: 40px;
+  margin: 100px auto; }
+
+.sk-cube-grid .sk-cube {
+  width: 33%;
+  height: 33%;
+  background-color: #333;
+  float: left;
+  -webkit-animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;
+  animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out; }
+
+.sk-cube-grid .sk-cube1 {
+  -webkit-animation-delay: 0.2s;
+  animation-delay: 0.2s; }
+
+.sk-cube-grid .sk-cube2 {
+  -webkit-animation-delay: 0.3s;
+  animation-delay: 0.3s; }
+
+.sk-cube-grid .sk-cube3 {
+  -webkit-animation-delay: 0.4s;
+  animation-delay: 0.4s; }
+
+.sk-cube-grid .sk-cube4 {
+  -webkit-animation-delay: 0.1s;
+  animation-delay: 0.1s; }
+
+.sk-cube-grid .sk-cube5 {
+  -webkit-animation-delay: 0.2s;
+  animation-delay: 0.2s; }
+
+.sk-cube-grid .sk-cube6 {
+  -webkit-animation-delay: 0.3s;
+  animation-delay: 0.3s; }
+
+.sk-cube-grid .sk-cube7 {
+  -webkit-animation-delay: 0s;
+  animation-delay: 0s; }
+
+.sk-cube-grid .sk-cube8 {
+  -webkit-animation-delay: 0.1s;
+  animation-delay: 0.1s; }
+
+.sk-cube-grid .sk-cube9 {
+  -webkit-animation-delay: 0.2s;
+  animation-delay: 0.2s; }
+
+@-webkit-keyframes sk-cubeGridScaleDelay {
+  0%, 70%, 100% {
+    -webkit-transform: scale3D(1, 1, 1);
+    transform: scale3D(1, 1, 1); } }
+
+35% {
+  -webkit-transform: scale3D(0, 0, 1);
+  transform: scale3D(0, 0, 1); }
+
+@keyframes sk-cubeGridScaleDelay {
+  0%, 70%, 100% {
+    -webkit-transform: scale3D(1, 1, 1);
+    transform: scale3D(1, 1, 1); }
+  35% {
+    -webkit-transform: scale3D(0, 0, 1);
+    transform: scale3D(0, 0, 1); } }
