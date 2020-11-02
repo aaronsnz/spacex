@@ -28,7 +28,7 @@ body {
   background-color: white; }
 
 .is-active {
-  display: inline-block !important; }
+  display: block !important; }
 
 .layout-sidebar {
   position: absolute;
@@ -51,7 +51,8 @@ body {
   height: 100%;
   background-color: white;
   position: absolute;
-  display: none; }
+  display: none;
+  z-index: 9999; }
 
 .layout-loading-icon {
   height: 100%;

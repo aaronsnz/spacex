@@ -16,8 +16,8 @@
 
         
     </head>
-    <body>              
-        <div class="layout-loading-page is-active">
+    <body> 
+        <div  class="layout-loading-page is-active">
             <div class="layout-loading-icon">
                 <div class="sk-cube-grid">
                     <div class="sk-cube sk-cube1"></div>
@@ -33,26 +33,22 @@
             </div>
         </div>
         <header>
-           <div class="layout-sidebar">
+            <div class="layout-sidebar">
                 <div class="layout-next-launch">
                     <h1 class="next-launch__title">Next launch in:</h1>
-                    <span class="next-launch__subtitle">04 days, 3 hours, 25 minutes, 5 seconds</span>
+                    <span class="next-launch__subtitle" id="countdown">04 days, 3 hours, 25 minutes, 5 seconds</span>
                 </div>
                 <div class="layout-next-launch">
                     <h2 class="next-launch__header">Mission:</h2>
-                    <span class="next-launch__content">Orbcomm 0G2</span>
-                </div>
-                <div class="layout-next-launch">
-                    <h2 class="next-launch__header">Customers:</h2>
-                    <span class="next-launch__content">Pasifik Satelit Nusantara</span>
+                    <span class="next-launch__content" id="mission-name">Orbcomm 0G2</span>
                 </div>
                 <div class="layout-next-launch">
                     <h2 class="next-launch__header">Launch site:</h2>
-                    <span class="next-launch__content">Cape Canaveral Air Force Station Space Launch Complex 40</span>
+                    <span class="next-launch__content" id="launch-site">Cape Canaveral Air Force Station Space Launch Complex 40</span>
                 </div>
                 <div class="layout-next-launch">
                     <h2 class="next-launch__header">Mission:</h2>
-                    <span class="next-launch__content">This mission will launch the tenth batch of operational Starlink 
+                    <span class="next-launch__content" id="mission-content">This mission will launch the tenth batch of operational Starlink 
 
                         satellites, which are expected to be version 1.0, from LC-39A, Kennedy 
     
@@ -62,7 +58,7 @@
     
                         maneuvering to their operational altitude of 550 km. </span>
                 </div>
-           </div>
+            </div>
         </header>          
         <div class="layout-map-container" id="mapid">            
             

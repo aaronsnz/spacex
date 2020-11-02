@@ -1,4 +1,5 @@
 
+console.log('Testing');
 var nextLaunchDate = Date.now();
 var currentDate = Date.now();
 

@@ -1,50 +1,97 @@
-let loadingPage = document.querySelector(".layout-loading-page");
+domStrings = {
+    countDown: document.querySelector('#countdown'),
+    missionName: document.querySelector('#mission-name'),    
+    launchSite: document.querySelector('#launch-site'),
+    missionContent: document.querySelector('#mission-content')
+}
 
-const nextLaunch = async function(){  
+async function getNextLaunch(){  
     const response = await fetch('https://api.spacexdata.com/v3/launches/next');         
-    const data = await response.json();
-    return data;
-    
+    const data = response.json();    
+    return data;    
 }
-const launchPad = async function(id){           
+async function getLaunchPad(id){           
     const response = await fetch(`https://api.spacexdata.com/v3/launchpads/${id}`);
-    const data = await response.json();
+    const data = response.json();
     return data;
 }
 
-nextLaunch().then(nextLaunchData => {    
-    launchPad(nextLaunchData.launch_site.site_id).then(launchPadData => {
-        loadingPage.classList.toggle("is-active");
-       
-        var mymap = L.map('mapid').setView([launchPadData.location.latitude, launchPadData.location.longitude], 4);
+function updateDom(nextLaunch, countDownString){    
+    domStrings.countDown.innerHTML = countDownString;
+    domStrings.missionName.innerHTML = nextLaunch.mission_name;
+    domStrings.launchSite.innerHTML = nextLaunch.launch_site.site_name_long;
+    domStrings.missionContent.innerHTML = nextLaunch.details;
+}
+
+function initializeMap(launchPad){
+    var mymap = L.map('mapid');
+    mymap.setView([launchPad.location.latitude, launchPad.location.longitude], 4);
+    
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+        maxZoom: 18,
+        id: 'mapbox/streets-v11',
+        tileSize: 512,
+        zoomOffset: -1,
+        accessToken: 'pk.eyJ1IjoiYWFyb25zbiIsImEiOiJja2Vvb2hlaXQwcm8xMzF0NWNxcjFiYnR1In0.YyuRfMBfT_eyEGi9wKs0bg'
+    }).addTo(mymap);
+    
+    var customIcon = L.icon({
+        iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png',
+        shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+        shadowSize: [41, 41]
         
-        L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-            maxZoom: 18,
-            id: 'mapbox/streets-v11',
-            tileSize: 512,
-            zoomOffset: -1,
-            accessToken: 'pk.eyJ1IjoiYWFyb25zbiIsImEiOiJja2Vvb2hlaXQwcm8xMzF0NWNxcjFiYnR1In0.YyuRfMBfT_eyEGi9wKs0bg'
-        }).addTo(mymap);
+    })
+    var marker = L.marker([launchPad.location.latitude, launchPad.location.longitude], {
+        icon: customIcon
+    }).addTo(mymap);    
+}
 
-        var customIcon = L.icon({
-            iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png',
-            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-            iconSize: [25, 41],
-            iconAnchor: [12, 41],
-            popupAnchor: [1, -34],
-            shadowSize: [41, 41]
+function hideLoadingScreen(){
+    let loadingPage = document.querySelector(".layout-loading-page");
+    loadingPage.classList.toggle("is-active");
+}
 
-        })
-        var marker = L.marker([launchPadData.location.latitude, launchPadData.location.longitude], {
-            icon: customIcon
-        }).addTo(mymap);
-        
-        
-    });
-});
+function formatDateToString(date){
+    let days = Math.floor(date / (1000 * 60 * 60 * 24));
+    let hours = Math.floor((date % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    let minutes = Math.floor((date % (1000 * 60 * 60)) / (1000 * 60));
+    let seconds = Math.floor((date % (1000 * 60)) / 1000);  
+    
+    let countDownTimer = new Array();    
+    days > 0 ? countDownTimer.push(`${days} days`) : countDownTimer.push('0 days');
+    hours > 0 ? countDownTimer.push(`${hours} hours`) : countDownTimer.push( '0 hours') ; 
+    minutes > 0 ? countDownTimer.push(`${minutes} minutes`) : countDownTimer.push('0 minutes');
+    seconds > 0 ? countDownTimer.push(`${seconds} seconds`) : countDownTimer.push('0 seconds');           
+    
+    return countDownTimer.join(', ');
+}
 
+function makeCountDownTimerCountDown(timeUntilNextLaunch){    
+    setInterval(function(){    
+        timeUntilNextLaunch = timeUntilNextLaunch - 1000;        
+        domStrings.countDown.innerHTML = formatDateToString(timeUntilNextLaunch);
+    }, 1000);
+}
 
+async function displayNextLaunch(){
+    let nextLaunch = await getNextLaunch();
+    let launchPad = await getLaunchPad(nextLaunch.launch_site.site_id);
+    
+    let nextLaunchDateUtc = new Date(nextLaunch.launch_date_utc).getTime();    
+    let currentDate = Date.now();
+    let timeUntilNextLaunch =  nextLaunchDateUtc - currentDate;  
+    
+    initializeMap(launchPad);
+    updateDom(nextLaunch, formatDateToString(timeUntilNextLaunch));
+    hideLoadingScreen();
+    makeCountDownTimerCountDown(timeUntilNextLaunch);    
+}
+
+displayNextLaunch();
 
 //console.log(launchPad(nextLaunch.launch_site.side_id));
 
