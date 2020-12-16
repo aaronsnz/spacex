@@ -5,142 +5,193 @@
     padding: 0
     box-sizing: border-box
     font-family: 'Audiowide', cursive, 'Arial' 
-    line-height: 1.25
-    letter-spacing: 2px
-//
+    line-height: 1.15
 html
-    font-size: 62%
+    font-size: 72%
     color: rgb(79,79,79)
+    text-rendering: optimizeLegibility
+    
+        
     @media ( min-width:500px )
         font-size: 50%
     @media ( min-width:700px )
         font-size: 56%
     @media ( min-width:1080px )
-        font-size: 75%
-    text-rendering: optimizeLegibility
+        font-size: 85%
+    @media screen and ( orientation: portrait )
+        font-size: 70%
+
 
 body
     width: 100%
     height: 100%
     background-color: white
-
+    
 .is-active
     display: block !important
 
 .layout
-    &-sidebar
+    &-sidebar 
         position: absolute
         height: 100%
         width: 35%
-        left: 0   
-        padding: 2.5rem     
+        left: 0
+        padding: 2.5rem
         border-right: 1px solid grey
-        background-color: #fff
-        overflow-y: scroll
-        
-    &-map-container
-        position: absolute
-        height: 100%
-        width: 65%
-        right: 0    
-      
-    &-loading-page
-        width: 100%
-        height: 100%
-        background-color: white
-        position: absolute
-        display: none
-        z-index: 9999
+        background-color: #e6e6e6
+        overflow-y: scroll           
+        @media screen and ( orientation: portrait )
+            height: 100%
+            width: 100%
+            display: block
+            overflow-y: none            
+            position: relative
+            
+
+    &-map-container  
+        position: absolute 
+        height: 100% 
+        width: 65% 
+        right: 0   
+        top: 0
+        @media screen and ( orientation: portrait )
+            display: block
+            position: relative
+            width: 100%
+            height: 100vh
+
+
+    &-loading-page  
+        width: 100% 
+        height: 100% 
+        background-color: white 
+        position: absolute 
+        display: none 
+        z-index: 9999   
+
     &-loading-icon  
-        height: 100%
-        width: 100%
-        display: flex
-        align-items: center
-    &-next-launch        
-        display: block
-        margin-bottom: 2.5rem
+        height: 100% 
+        width: 100% 
+        display: flex 
+        align-items: center   
 
-.next-launch
-    &__title
-        font-size: 3rem
-        text-align: center
-        
-    &__subtitle
-        font-size: 1.85rem        
-        text-align: center
-        display: block
+    &-next-launch  
+        display: block 
+        margin-bottom: 2.5rem   
 
-    &__header
-        font-size: 2.5rem
-        text-align: left        
-        margin-bottom: 1rem
-    &__content
-        font-size: 1.5rem
+
+.next-launch__title  
+    font-size: 3.35rem 
+    text-align: center   
+
+
+.next-launch__subtitle  
+    font-size: 1.85rem 
+    text-align: center 
+    display: block   
+
+.next-launch__header  
+    font-size: 2.5rem 
+    text-align: left 
+    margin-bottom: 1rem   
+
+.next-launch__content  
+    font-size: 2rem 
+    text-align: center 
+    margin-left: 2.5rem 
+    display: inline   
+
+.footer
+    display: flex
+    align-items: center
+    justify-content: center
+    margin-bottom: 2.5rem
+
+    &__credit
         text-align: center
-        margin-left: 2.5rem
-        display: inline
+        margin-left: 2rem
+        font-size: 1.55rem
+        color: rgb(79,79,79)
+        margin-left: 2rem
+
+a:visited,
+a:active,
+a:hover,
+a:focus
+    text-align: center
+    margin-left: 2rem
+    font-size: 1.55rem
+    color: rgb(79,79,79)
+    margin-left: 2rem
+
+
 
 
 /*----------------------------------------*/
 /*----------LOADING SCREEN ANIMATION------*/
 /*----------------------------------------*/
+.sk-cube-grid  
+    width: 40px 
+    height: 40px 
+    margin: 100px auto   
 
-.sk-cube-grid 
-    width: 40px
-    height: 40px
-    margin: 100px auto
+.sk-cube-grid .sk-cube  
+    width: 33% 
+    height: 33% 
+    background-color: #333 
+    float: left 
+    -webkit-animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out 
+    animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out   
 
+.sk-cube-grid .sk-cube1  
+    -webkit-animation-delay: 0.2s 
+    animation-delay: 0.2s   
 
-.sk-cube-grid .sk-cube 
-    width: 33%
-    height: 33%
-    background-color: #333
-    float: left
-    -webkit-animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out
-    animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out 
+.sk-cube-grid .sk-cube2  
+    -webkit-animation-delay: 0.3s 
+    animation-delay: 0.3s   
 
-.sk-cube-grid .sk-cube1 
-    -webkit-animation-delay: 0.2s
-    animation-delay: 0.2s 
-.sk-cube-grid .sk-cube2 
-    -webkit-animation-delay: 0.3s
-    animation-delay: 0.3s 
-.sk-cube-grid .sk-cube3 
-    -webkit-animation-delay: 0.4s
-    animation-delay: 0.4s 
-.sk-cube-grid .sk-cube4 
-    -webkit-animation-delay: 0.1s
-    animation-delay: 0.1s 
-.sk-cube-grid .sk-cube5 
-    -webkit-animation-delay: 0.2s
-    animation-delay: 0.2s 
-.sk-cube-grid .sk-cube6 
-    -webkit-animation-delay: 0.3s
-    animation-delay: 0.3s 
-.sk-cube-grid .sk-cube7 
-    -webkit-animation-delay: 0s
-    animation-delay: 0s 
-.sk-cube-grid .sk-cube8 
-    -webkit-animation-delay: 0.1s
-    animation-delay: 0.1s 
-.sk-cube-grid .sk-cube9 
-    -webkit-animation-delay: 0.2s
-    animation-delay: 0.2s 
+.sk-cube-grid .sk-cube3  
+    -webkit-animation-delay: 0.4s 
+    animation-delay: 0.4s   
 
-@-webkit-keyframes sk-cubeGridScaleDelay 
-    0%, 70%, 100% 
-        -webkit-transform: scale3D(1, 1, 1)
-        transform: scale3D(1, 1, 1)
-35% 
-        -webkit-transform: scale3D(0, 0, 1)
-        transform: scale3D(0, 0, 1) 
+.sk-cube-grid .sk-cube4  
+    -webkit-animation-delay: 0.1s 
+    animation-delay: 0.1s   
 
+.sk-cube-grid .sk-cube5  
+    -webkit-animation-delay: 0.2s 
+    animation-delay: 0.2s   
 
+.sk-cube-grid .sk-cube6  
+    -webkit-animation-delay: 0.3s 
+    animation-delay: 0.3s   
 
-@keyframes sk-cubeGridScaleDelay 
-    0%, 70%, 100% 
-        -webkit-transform: scale3D(1, 1, 1)
-        transform: scale3D(1, 1, 1)
-    35% 
-        -webkit-transform: scale3D(0, 0, 1)
-        transform: scale3D(0, 0, 1)
+.sk-cube-grid .sk-cube7  
+    -webkit-animation-delay: 0s 
+    animation-delay: 0s   
+
+.sk-cube-grid .sk-cube8  
+    -webkit-animation-delay: 0.1s 
+    animation-delay: 0.1s   
+
+.sk-cube-grid .sk-cube9  
+    -webkit-animation-delay: 0.2s 
+    animation-delay: 0.2s   
+
+@-webkit-keyframes sk-cubeGridScaleDelay  
+    0%, 70%, 100%  
+        -webkit-transform: scale3D(1, 1, 1) 
+        transform: scale3D(1, 1, 1)     
+
+    35%  
+    -webkit-transform: scale3D(0, 0, 1) 
+    transform: scale3D(0, 0, 1)   
+
+@keyframes sk-cubeGridScaleDelay  
+    0%, 70%, 100%  
+    -webkit-transform: scale3D(1, 1, 1) 
+    transform: scale3D(1, 1, 1)   
+    35%  
+    -webkit-transform: scale3D(0, 0, 1) 
+    transform: scale3D(0, 0, 1)     

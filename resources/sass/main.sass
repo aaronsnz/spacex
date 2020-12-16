@@ -6,17 +6,18 @@
     box-sizing: border-box
     font-family: 'Audiowide', cursive, 'Arial' 
     line-height: 1.15
-
 html
     font-size: 62%
     color: rgb(79,79,79)
-
+    text-rendering: optimizeLegibility
     @media ( min-width:500px )
         font-size: 50%
     @media ( min-width:700px )
         font-size: 56%
     @media ( min-width:1080px )
         font-size: 75%
+        
+
 
 body
     width: 100%
@@ -31,14 +32,10 @@ body
 
 
 .next-launch-textbox
-    //position: absolute
-    //top: 25%
-    //left: 50%
     margin-bottom: 7.5rem
-    //transform: translate(-50%, -50%)
+
 .next-launch-header
     max-width: 100%
-    //white-space: nowrap
     display: block
     @media ( max-width:625px  )
         white-space: normal
@@ -56,10 +53,7 @@ body
             text-align: left
 .launch-info-container
     max-width: 100%    
-    //position: absolute
     top: 60vh
-    //left: 20%
-    //transform: translate(-50%)
 
 .launch-info
     margin-bottom: 2rem
