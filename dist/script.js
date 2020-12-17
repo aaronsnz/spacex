@@ -3,7 +3,8 @@ domStrings = {
     missionName: document.querySelector('#mission-name'),    
     launchSite: document.querySelector('#launch-site'),
     missionContent: document.querySelector('#mission-content'),
-    shipName: document.querySelector('#ship-name')
+    shipName: document.querySelector('#ship-name'),
+    mainTitle: document.querySelector('#main-title')
 }
 
 async function getNextLaunch(){      
@@ -34,7 +35,7 @@ function updateDom(nextLaunch, countDownString, launchPad, ship){
 
 function initializeMap(launchPad){
     var mymap = L.map('mapid');
-    mymap.setView([launchPad.latitude, launchPad.longitude],5);
+    mymap.setView([launchPad.latitude, launchPad.longitude],6);
     
     L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
@@ -82,7 +83,16 @@ function formatDateToString(date){
 function makeCountDownTimerCountDown(timeUntilNextLaunch){    
     setInterval(function(){    
         timeUntilNextLaunch = timeUntilNextLaunch - 1000;        
-        domStrings.countDown.innerHTML = formatDateToString(timeUntilNextLaunch);
+        domStrings.countDown.innerHTML = formatDateToString(timeSinceLastLaunch);        
+    }, 1000);
+}
+
+function makeCountDownTimerCountUp(timeSinceLastLaunch){
+    setInterval(function(){    
+            timeSinceLastLaunch = timeSinceLastLaunch + 1000;        
+            let countDownString = formatDateToString(timeSinceLastLaunch)
+            let auxString = " ago";            
+            domStrings.countDown.innerHTML = countDownString + auxString;
     }, 1000);
 }
 
@@ -94,11 +104,18 @@ async function displayNextLaunch(){
     let nextLaunchDateUtc = new Date(nextLaunch.date_utc).getTime();    
     let currentDate = Date.now();
     let timeUntilNextLaunch =  nextLaunchDateUtc - currentDate;  
+
+    //If launch was alredy made
+    if(timeUntilNextLaunch < 0){
+        makeCountDownTimerCountUp(timeUntilNextLaunch * -1);     
+        domStrings.mainTitle.innerHTML = "Last launch happened: ";
+    } else {        
+        makeCountDownTimerCountDown(timeUntilNextLaunch);    
+    }
     
-    initializeMap(launchPad);
     updateDom(nextLaunch, formatDateToString(timeUntilNextLaunch), launchPad, ship);
+    initializeMap(launchPad);
     hideLoadingScreen();
-    makeCountDownTimerCountDown(timeUntilNextLaunch);    
 }
 
 displayNextLaunch();

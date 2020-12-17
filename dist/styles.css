@@ -33,6 +33,7 @@ body {
   display: block !important; }
 
 .layout-sidebar {
+  will-change: transform;
   position: absolute;
   height: 100%;
   width: 35%;
@@ -82,7 +83,8 @@ body {
 
 .next-launch__title {
   font-size: 3.35rem;
-  text-align: center; }
+  text-align: center;
+  margin-bottom: 1rem; }
 
 .next-launch__subtitle {
   font-size: 1.85rem;
