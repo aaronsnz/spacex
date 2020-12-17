@@ -83,7 +83,7 @@ function formatDateToString(date){
 function makeCountDownTimerCountDown(timeUntilNextLaunch){    
     setInterval(function(){    
         timeUntilNextLaunch = timeUntilNextLaunch - 1000;        
-        domStrings.countDown.innerHTML = formatDateToString(timeSinceLastLaunch);        
+        domStrings.countDown.innerHTML = formatDateToString(timeUntilNextLaunch);        
     }, 1000);
 }
 
@@ -91,7 +91,7 @@ function makeCountDownTimerCountUp(timeSinceLastLaunch){
     setInterval(function(){    
             timeSinceLastLaunch = timeSinceLastLaunch + 1000;        
             let countDownString = formatDateToString(timeSinceLastLaunch)
-            let auxString = " ago";            
+            let auxString = "\n ago";            
             domStrings.countDown.innerHTML = countDownString + auxString;
     }, 1000);
 }
