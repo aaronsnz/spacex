@@ -3,7 +3,7 @@ domStrings = {
     missionName: document.querySelector('#mission-name'),    
     launchSite: document.querySelector('#launch-site'),
     missionContent: document.querySelector('#mission-content'),
-    shipName: document.querySelector('#ship-name'),
+    rocketName: document.querySelector('#rocket-name'),
     mainTitle: document.querySelector('#main-title')
 }
 
@@ -18,18 +18,24 @@ async function getLaunchPad(id){
     return data;
 }
 
-async function getShip(id){
-    const response = await fetch(`https://api.spacexdata.com/v4/ships/${id}`);
+async function getRocket(id){
+    const response = await fetch(`https://api.spacexdata.com/v4/rockets/${id}`);
     const data = await response.json();
     return data;
 }
 
-function updateDom(nextLaunch, countDownString, launchPad, ship){    
-    domStrings.countDown.innerHTML = countDownString;
-    domStrings.missionName.innerHTML = nextLaunch.name;
-    domStrings.launchSite.innerHTML = launchPad.full_name;
-    domStrings.missionContent.innerHTML = nextLaunch.details;
-    domStrings.shipName.innerHTML = ship.name;
+function updateDom(nextLaunch, countDownString, launchPad, rocket){    
+    countDownString ? domStrings.countDown.innerHTML = countDownString : domStrings.countDown.innerHTML = "N/A";
+    nextLaunch.name ? domStrings.missionName.innerHTML = nextLaunch.name : domStrings.missionName.innerHTML = "N/A";
+    launchPad.full_name ? domStrings.launchSite.innerHTML = launchPad.full_name : domStrings.launchSite.innerHTML = "N/A";
+    nextLaunch.details ? domStrings.missionContent.innerHTML = nextLaunch.details : domStrings.missionContent.innerHTML = "N/A";
+    rocket.name ? domStrings.rocketName.innerHTML = rocket.name : domStrings.rocketName.innerHTML = "N/A";
+
+    //domStrings.countDown.innerHTML = countDownString;
+    //domStrings.missionName.innerHTML = nextLaunch.name;
+    //domStrings.launchSite.innerHTML = launchPad.full_name;    
+    //domStrings.missionContent.innerHTML = nextLaunch.details;    //
+    //domStrings.rocketName.innerHTML = rocket.name;
 
 }
 
@@ -99,7 +105,8 @@ function makeCountDownTimerCountUp(timeSinceLastLaunch){
 async function displayNextLaunch(){
     let nextLaunch = await getNextLaunch();
     let launchPad = await getLaunchPad(nextLaunch.launchpad);    
-    let ship = await getShip(nextLaunch.ships[0]);
+    console.log(nextLaunch, launchPad);
+    let rocket = await getRocket(nextLaunch.rocket);
     
     let nextLaunchDateUtc = new Date(nextLaunch.date_utc).getTime();    
     let currentDate = Date.now();
@@ -113,7 +120,7 @@ async function displayNextLaunch(){
         makeCountDownTimerCountDown(timeUntilNextLaunch);    
     }
     
-    updateDom(nextLaunch, formatDateToString(timeUntilNextLaunch), launchPad, ship);
+    updateDom(nextLaunch, formatDateToString(timeUntilNextLaunch), launchPad, rocket);
     initializeMap(launchPad);
     hideLoadingScreen();
 }
